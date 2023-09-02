@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 	"testing"
 
 	"github.com/SubhamMurarka/simplebank/util"
@@ -17,13 +16,13 @@ func TestCreateEntry(t *testing.T) {
 	require.NotEmpty(t, account)
 
 	arg := CreateEntryParams{
-		AccountID: sql.NullInt64{Int64: 10, Valid: true},
+		AccountID: int64(10),
 		Amount:    util.RandomMoney(),
 	}
 	entry, err := testQueries.CreateEntry(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, entry)
-	require.Equal(t, entry.AccountID.Int64, account.ID)
+	require.Equal(t, entry.AccountID, account.ID)
 }
 
 // func TestGetEntry(t *testing.T) {
